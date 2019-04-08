@@ -50,21 +50,21 @@
                     $('#top').hide();
                     $('#bottom').show();
                     $('#title').text('chat' + mage.table);
-                    $('#users').append('<span>'+ mage.name + '\t</span>');
-                    $('#sed').append('<span>'+ mage.name +'上线</span><br/>');
+                    $('#users').append('<span>'+ mage.userName + '\t</span>');
+                    $('#sed').append('<span>'+ mage.userName +'上线</span><br/>');
                 } else if (mage.message == '20002') {//有人下线
                     var cns = $('#users').children();
                     console.log(cns);
                     for (var i = 0; i < cns.length; i++) {
-                        if ($(cns[i]).text() == mage.name + '\t') {
+                        if ($(cns[i]).text() == mage.userName + '\t') {
                             $(cns[i]).remove();
                         }
                     }
-                    $('#sed').append('<span>'+ mage.name +'下线</span><br/>');
+                    $('#sed').append('<span>'+ mage.userName +'下线</span><br/>');
                 } else if (mage.message == '30003') {//加载已上线用户
-                    $('#users').append('<span>'+ mage.name + '\t</span>');
+                    $('#users').append('<span>'+ mage.userName + '\t</span>');
                 } else {//用户发的消息
-                    $('#sed').append('<span>'+ mage.name + ' : ' + mage.message + '</span><br/>');
+                    $('#sed').append('<span>'+ mage.userName + ' : ' + mage.message + '</span><br/>');
                 }
             }
             //webSocket的链接

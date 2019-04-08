@@ -35,7 +35,7 @@ public class MageBena {
     /**
      * 发送时间
      */
-    private String sendDate;
+//    private String sendDate;
  
     /**
      * 将json字符串转成Mage
