@@ -74,7 +74,6 @@
                 console.log(data);
                 user.table = num;
                 user.message = '10001';
-                delete user.pwd;
                 console.log(user);
                 //链接成功后发送用户信息进入聊天室
                 socket.send(JSON.stringify(user));

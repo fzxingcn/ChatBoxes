@@ -1,13 +1,17 @@
-package com.chat.netty.entity;
+package com.chat.entity;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 import java.util.Objects;
 
+/**
+ * 用户消息实体类
+ */
 @Data
-public class Mage {
- 
+public class MageBena {
+
+
     private static ObjectMapper gson = new ObjectMapper();
     /*private static Gson gson = new Gson();*/
  
@@ -18,15 +22,20 @@ public class Mage {
     /**
      * 用户id
      */
-    private String id;
+    private String userId;
     /**
      * 用户名
      */
-    private String name;
+    private String userName;
     /**
      * 所发送的消息
      */
     private String message;
+
+    /**
+     * 发送时间
+     */
+    private String sendDate;
  
     /**
      * 将json字符串转成Mage
@@ -34,8 +43,8 @@ public class Mage {
      * @return
      * @throws Exception
      */
-    public static Mage strJson2Mage(String message) throws Exception{
-        return Objects.isNull(message) ? null : gson.readValue(message, Mage.class);
+    public static MageBena strJson2Mage(String message) throws Exception{
+        return Objects.isNull(message) ? null : gson.readValue(message, MageBena.class);
     }
  
     /**
@@ -47,7 +56,7 @@ public class Mage {
         return gson.writeValueAsString(this);
     }
  
-    public Mage setTableId(String table) {
+    public MageBena setTableId(String table) {
         this.setTable(table);
         return this;
     }

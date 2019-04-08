@@ -1,7 +1,7 @@
 package com.chat.netty.handling;
 
-import com.chat.netty.entity.InformationOperateMap;
-import com.chat.netty.entity.Mage;
+import com.chat.entity.InformationOperateMap;
+import com.chat.entity.MageBena;
 import com.chat.netty.handling.message.HttpMessageHanding;
 import com.chat.netty.handling.message.SocketMessageHanding;
 import io.netty.buffer.ByteBuf;
@@ -61,8 +61,8 @@ public class MessageHandling extends SimpleChannelInboundHandler<Object> {
         System.out.println("delete : id = " + this.sessionId + " table = " + this.table);
         //关闭连接将移除该用户消息
         InformationOperateMap.delete(this.sessionId, this.table);
-        Mage mage = new Mage();
-        mage.setName(this.name);
+        MageBena mage = new MageBena();
+        mage.setUserName(this.name);
         mage.setMessage("20002");
         //将用户下线信息发送给为下线用户
         InformationOperateMap.map.get(this.table).forEach((id, iom) -> {

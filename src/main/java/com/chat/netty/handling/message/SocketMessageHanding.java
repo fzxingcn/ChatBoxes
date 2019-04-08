@@ -1,10 +1,9 @@
 package com.chat.netty.handling.message;
 
-import com.chat.netty.entity.InformationOperateMap;
-import com.chat.netty.entity.Mage;
+import com.chat.entity.InformationOperateMap;
+import com.chat.entity.MageBena;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.*;
-import org.springframework.stereotype.Component;
 
 /**
  * socket处理类
@@ -44,7 +43,7 @@ public class SocketMessageHanding {
             String text =((TextWebSocketFrame)frame).text();
             System.out.println("mage : " + text);
             //消息转成Mage
-            Mage mage = Mage.strJson2Mage(text);
+            MageBena mage = MageBena.strJson2Mage(text);
             //判断是以存在用户信息
             if (InformationOperateMap.isNo(mage)) {
                 //判断是否有这个聊天室
@@ -53,7 +52,7 @@ public class SocketMessageHanding {
                     if (InformationOperateMap.map.get(mage.getTable()).size() > 0) {
                         InformationOperateMap.map.get(mage.getTable()).forEach((id, iom) -> {
                             try {
-                                Mage mag = iom.getMage();
+                                MageBena mag = iom.getMage();
                                 mag.setMessage("30003");
                                 //发送其他用户信息给要注册用户
                                 this.sendWebSocket(mag.toJson());
@@ -76,9 +75,9 @@ public class SocketMessageHanding {
                 }
             });
             //记录id和table 当页面刷新或浏览器关闭时，注销掉此链路
-            this.sessionId = mage.getId();
+            this.sessionId = mage.getUserId();
             this.table = mage.getTable();
-            this.name = mage.getName();
+            this.name = mage.getUserName();
         } else {
             System.err.println("------------------error--------------------------");
         }

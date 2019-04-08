@@ -1,4 +1,4 @@
-package com.chat.netty.entity;
+package com.chat.entity;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -14,9 +14,9 @@ public class InformationOperateMap {
     public static ConcurrentMap<String, ConcurrentMap<String, InformationOperateMap>> map = new ConcurrentHashMap<>();
  
     private ChannelHandlerContext ctx;
-    private Mage mage;
+    private MageBena mage;
  
-    private InformationOperateMap(ChannelHandlerContext ctx, Mage mage) {
+    private InformationOperateMap(ChannelHandlerContext ctx, MageBena mage) {
         this.ctx = ctx;
         this.mage = mage;
     }
@@ -26,13 +26,13 @@ public class InformationOperateMap {
      * @param ctx
      * @param mage
      */
-    public static void add(ChannelHandlerContext ctx, Mage mage) {
+    public static void add(ChannelHandlerContext ctx, MageBena mage) {
         InformationOperateMap iom = new InformationOperateMap(ctx, mage);
         ConcurrentMap<String, InformationOperateMap> cmap = new ConcurrentHashMap<>();
         if (map.containsKey(mage.getTable())) {
-            map.get(mage.getTable()).put(mage.getId(), iom);
+            map.get(mage.getTable()).put(mage.getUserId(), iom);
         } else {
-            cmap.put(mage.getId(), iom);
+            cmap.put(mage.getUserId(), iom);
             map.put(mage.getTable(), cmap);
         }
     }
@@ -57,8 +57,8 @@ public class InformationOperateMap {
      * @param mage
      * @return 存在false 不存在true
      */
-    public static boolean isNo(Mage mage) {
-        return map.containsKey(mage.getTable()) ? map.get(mage.getTable()).containsKey(mage.getId()) ? false : true : true;
+    public static boolean isNo(MageBena mage) {
+        return map.containsKey(mage.getTable()) ? map.get(mage.getTable()).containsKey(mage.getUserId()) ? false : true : true;
     }
  
     /**
@@ -66,13 +66,13 @@ public class InformationOperateMap {
      * @param mage
      * @throws Exception
      */
-    public void sead(Mage mage) throws Exception{
+    public void sead(MageBena mage) throws Exception{
         //this.ctx.channel().write(new TextWebSocketFrame(mage.toJson()));
         //this.ctx.flush();
         ctx.writeAndFlush(new TextWebSocketFrame(mage.toJson()));
     }
  
-    public Mage getMage() {
+    public MageBena getMage() {
         return mage;
     }
 }
